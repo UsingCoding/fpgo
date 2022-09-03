@@ -24,3 +24,17 @@ func Valid[T any](maybe Maybe[T]) bool {
 func Just[T any](maybe Maybe[T]) T {
 	return maybe.v
 }
+
+func FromPtr[T any](t *T) Maybe[T] {
+	if t == nil {
+		return NewNone[T]()
+	}
+	return NewJust[T](*t)
+}
+
+func ToPtr[T any](m Maybe[T]) *T {
+	if m.valid {
+		return &m.v
+	}
+	return nil
+}
